@@ -1,0 +1,96 @@
+﻿@model HTeval.Models.ContactModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Contact Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfComputers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfComputers)
+        </dd>
+
+    </dl>
+
+    <h4>Contact Addresses</h4>
+    <p>
+        @Html.ActionLink("Add address", "Create", "Address", new { cid = Model.ID } , null)
+    </p>
+    @if (Model.Addresses.Count > 0)
+    {
+        <table cellpadding="5" cellspacing="0" border="1">
+            <tr>
+                <th>Type</th>
+                <th>Address</th>
+                <th>Operations...</th>
+            </tr>
+
+            @foreach (var item in Model.Addresses)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddressType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddressLine1)<br />
+                        @if (!String.IsNullOrEmpty(item.AddressLine2))
+                        {
+                            @Html.DisplayFor(modelItem => item.AddressLine2)<br />
+                        }
+                        @Html.DisplayFor(modelItem => item.City) @Html.DisplayFor(modelItem => item.StateCode) @Html.DisplayFor(modelItem => item.Zip)
+                    </td>
+
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Address", new { id = item.ID }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Address", new { id = item.ID }, 
+                            new { onclick = "return confirm('Are you sure you want to delete this address?');" })
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit this Contact", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Return to Contact List", "List")
+</p>

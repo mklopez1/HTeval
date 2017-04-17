@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HTeval.Models.ContactModel>
+
+@{
+    ViewBag.Title = "View Contacts";
+}
+
+<h2>Contact List</h2>
+
+<p>
+    @Html.ActionLink("Add contact", "Create", "Contact", null, null)
+</p>
+
+@if (Model != null)
+{
+    <table cellpadding="5" cellspacing="0" border="1">
+        <tr>
+            <th>Contact Name</th>
+            <th>Email</th>
+            <th>DOB</th>
+            <th>Computers</th>
+            <th>Operations...</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.FirstName + " " + item.LastName, "Details", new { id = item.ID })
+                </td>
+                <td>@item.EmailAddress</td>
+                <td>@item.BirthDate.ToShortDateString()</td>
+                <td>@item.NumberOfComputers</td>
+                <td>
+                    @Html.ActionLink("View Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { onclick = "return confirm('Are you sure you want to delete this contact?');" })
+                </td>
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,35 @@
+﻿@using HTeval.Models
+
+@model IEnumerable<ContactModel>
+
+@{
+    ViewBag.Title = "Home Page";
+    int contactTotal = Model.Count();
+    int computerSum = Model.Sum(c => c.NumberOfComputers);
+    IEnumerable<AddressStats> stats = (IEnumerable<AddressStats>)ViewData["AddressStats"];
+}
+<div class="jumbotron">
+    <h2>HealthTrust Evaluation Project</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>Current data in project</h3>
+        <dl class="dl-horizontal">
+            <dt>Total contacts:</dt>
+            <dd>@contactTotal</dd>
+            <dt>Total computers:</dt>
+            <dd>@computerSum</dd>
+        </dl>
+        @if (stats.Count() > 0)
+        {
+            <h4>Contacts per Address Type</h4>
+            <dl class="dl-horizontal">
+                @foreach (AddressStats item in stats)
+                {
+                    <dt>@item.AddressType</dt><dd>@item.AddressCount</dd>
+                }
+            </dl>
+        }
+</div>
+</div>
