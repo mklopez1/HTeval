@@ -11,6 +11,7 @@ using HTeval.Models;
 
 namespace HTeval.Controllers
 {
+    [Authorize]
     public class AddressController : Controller
     {
         private DataContext db = new DataContext();
